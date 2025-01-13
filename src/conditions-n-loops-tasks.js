@@ -359,6 +359,7 @@ function getBalanceIndex(arr) {
  */
 function getSpiralMatrix(size) {
   const result = new Array(size);
+
   for (let i = 0; i < size; i += 1) {
     result[i] = new Array(size);
     for (let j = 0; j < size; j += 1) {
@@ -376,6 +377,7 @@ function getSpiralMatrix(size) {
     [0, -1],
     [-1, 0],
   ];
+
   let directionIndex = 0;
 
   while (i <= size ** 2) {
@@ -419,8 +421,27 @@ function getSpiralMatrix(size) {
  *    [7, 8, 9]         [9, 6, 3]
  *  ]                 ]
  */
-function rotateMatrix(/* matrix */) {
-  throw new Error('Not implemented');
+function rotateMatrix(matrix) {
+  const n = matrix.length;
+  const currMatrix = matrix;
+
+  for (let i = 0; i < n; i += 1) {
+    for (let j = i + 1; j < n; j += 1) {
+      const temp = currMatrix[i][j];
+      currMatrix[i][j] = currMatrix[j][i];
+      currMatrix[j][i] = temp;
+    }
+  }
+
+  for (let i = 0; i < n; i += 1) {
+    for (let j = 0; j < Math.floor(n / 2); j += 1) {
+      const temp = currMatrix[i][j];
+      currMatrix[i][j] = currMatrix[i][n - j - 1];
+      currMatrix[i][n - j - 1] = temp;
+    }
+  }
+
+  return currMatrix;
 }
 
 /**
@@ -437,8 +458,20 @@ function rotateMatrix(/* matrix */) {
  *  [2, 9, 5, 9]    => [2, 5, 9, 9]
  *  [-2, 9, 5, -3]  => [-3, -2, 5, 9]
  */
-function sortByAsc(/* arr */) {
-  throw new Error('Not implemented');
+function sortByAsc(arr) {
+  const currArr = arr;
+
+  for (let i = 0; i < currArr.length - 1; i += 1) {
+    for (let j = 0; j < currArr.length - 1 - i; j += 1) {
+      if (arr[j] > arr[j + 1]) {
+        const temp = arr[j];
+        currArr[j] = arr[j + 1];
+        currArr[j + 1] = temp;
+      }
+    }
+  }
+
+  return currArr;
 }
 
 /**
@@ -479,8 +512,14 @@ function shuffleChar(/* str, iterations */) {
  * @param {number} number The source number
  * @returns {number} The nearest larger number, or original number if none exists.
  */
-function getNearestBigger(/* number */) {
-  throw new Error('Not implemented');
+function getNearestBigger(number) {
+  const digits = [];
+  let num = number;
+  while (num > 0) {
+    digits.push(num % 10);
+    num = Math.floor(num / 10);
+  }
+  return digits;
 }
 
 module.exports = {
